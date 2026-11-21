@@ -1,0 +1,68 @@
+
+{% extends 'denuncie/base.html' %}
+
+{% block title %}Registrar denúncia{% endblock %}
+
+{% block content %}
+
+<h1>Registrar denúncia</h1>
+
+<p>Preencha as informações sobre o ocorrido.</p>
+
+<form method="POST">
+    {% csrf_token %}
+
+    {{ form.non_field_errors }}
+
+    <label>Tipo de denúncia</label>
+    {{ form.tipo }}
+    {{ form.tipo.errors }}
+
+    <label>Empresa envolvida</label>
+    {{ form.empresa }}
+    {{ form.empresa.errors }}
+
+    <label>Descrição do ocorrido</label>
+    {{ form.descricao }}
+    {{ form.descricao.errors }}
+
+    <div class="destaque">
+        <label>
+            {{ form.anonima }}
+            Desejo realizar uma denúncia anônima.
+        </label>
+    </div>
+
+    <div id="identificacao">
+        <label>Nome</label>
+        {{ form.nome }}
+        {{ form.nome.errors }}
+
+        <label>E-mail</label>
+        {{ form.email }}
+        {{ form.email.errors }}
+    </div>
+
+    <button type="submit">Enviar denúncia</button>
+</form>
+
+<script>
+    const anonima = document.getElementById('id_anonima');
+    const identificacao = document.getElementById('identificacao');
+    const nome = document.getElementById('id_nome');
+    const email = document.getElementById('id_email');
+
+    function atualizarCampos() {
+        const ocultar = anonima.checked;
+
+        identificacao.style.display = ocultar ? 'none' : 'block';
+
+        nome.required = !ocultar;
+        email.required = !ocultar;
+    }
+
+    anonima.addEventListener('change', atualizarCampos);
+    atualizarCampos();
+</script>
+
+{% endblock %}

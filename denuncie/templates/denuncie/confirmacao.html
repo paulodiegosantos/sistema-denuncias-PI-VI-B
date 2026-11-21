@@ -1,0 +1,20 @@
+
+{% extends 'denuncie/base.html' %}
+
+{% block title %}Denúncia registrada{% endblock %}
+
+{% block content %}
+
+<h1>Denúncia registrada!</h1>
+
+<p>Sua denúncia foi recebida pelo sistema.</p>
+
+<div class="destaque">
+    <h3>Seu protocolo de acompanhamento:</h3>
+    <p><strong>{{ denuncia.protocolo }}</strong></p>
+    <p>Guarde esse código em local seguro. Ele será necessário para consultar o andamento.</p>
+</div>
+
+<a class="botao" href="{% url 'acompanhar' %}">Acompanhar denúncia</a>
+
+{% endblock %}

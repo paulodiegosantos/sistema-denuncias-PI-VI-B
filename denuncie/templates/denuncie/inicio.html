@@ -1,0 +1,27 @@
+
+{% extends 'denuncie/base.html' %}
+
+{% block title %}Início | Canal Seguro{% endblock %}
+
+{% block content %}
+
+<h1>Canal de Denúncias</h1>
+
+<p>
+    Este sistema permite relatar vazamentos de dados,
+    práticas inadequadas de segurança e atividades suspeitas.
+</p>
+
+<div class="destaque">
+    <h3>Sua identidade é importante e deve ser protegida.</h3>
+    <p>
+        Você pode realizar uma denúncia anonimamente
+        ou optar por informar seus dados de contato.
+    </p>
+</div>
+
+<a class="botao" href="{% url 'registrar' %}">Realizar denúncia</a>
+
+<a class="botao" href="{% url 'acompanhar' %}">Acompanhar denúncia</a>
+
+{% endblock %}

@@ -1,0 +1,44 @@
+
+{% extends 'denuncie/base.html' %}
+
+{% block title %}Acompanhar denúncia{% endblock %}
+
+{% block content %}
+
+<h1>Acompanhar denúncia</h1>
+
+<p>Informe seu protocolo para consultar o andamento.</p>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <label>Protocolo</label>
+    <input
+        type="text"
+        name="protocolo"
+        placeholder="Cole seu protocolo aqui"
+        required
+    >
+
+    <button type="submit">Consultar</button>
+</form>
+
+{% if erro %}
+    <p class="erro">{{ erro }}</p>
+{% endif %}
+
+{% if denuncia %}
+    <div class="destaque">
+        <h3>Denúncia localizada</h3>
+
+        <p><strong>Protocolo:</strong> {{ denuncia.protocolo }}</p>
+
+        <p><strong>Tipo:</strong> {{ denuncia.get_tipo_display }}</p>
+
+        <p><strong>Status:</strong> {{ denuncia.get_status_display }}</p>
+
+        <p><strong>Recebida em:</strong> {{ denuncia.criada_em|date:"d/m/Y H:i" }}</p>
+    </div>
+{% endif %}
+
+{% endblock %}

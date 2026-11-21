@@ -1,0 +1,56 @@
+
+{% extends 'denuncie/base.html' %}
+
+{% block title %}Painel administrativo{% endblock %}
+
+{% block content %}
+
+<h1>Painel administrativo</h1>
+
+<p>Bem-vindo, {{ request.user.username }}.</p>
+
+<div class="destaque">
+    <p><strong>Total de denúncias:</strong> {{ total }}</p>
+    <p><strong>Recebidas:</strong> {{ recebidas }}</p>
+    <p><strong>Em análise:</strong> {{ analise }}</p>
+    <p><strong>Em investigação:</strong> {{ investigacao }}</p>
+</div>
+
+<h2>Denúncias registradas</h2>
+
+<table width="100%" cellpadding="10">
+    <thead>
+        <tr>
+            <th>Protocolo</th>
+            <th>Tipo</th>
+            <th>Status</th>
+            <th>Ação</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for denuncia in denuncias %}
+        <tr>
+            <td>{{ denuncia.protocolo }}</td>
+            <td>{{ denuncia.get_tipo_display }}</td>
+            <td>{{ denuncia.get_status_display }}</td>
+            <td>
+                <a href="{% url 'detalhe_denuncia' denuncia.pk %}">
+                    Visualizar
+                </a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">Nenhuma denúncia registrada.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<form method="POST" action="{% url 'logout_admin' %}">
+    {% csrf_token %}
+    <button type="submit">Sair</button>
+</form>
+
+{% endblock %}

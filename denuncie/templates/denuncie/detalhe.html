@@ -1,0 +1,71 @@
+
+{% extends 'denuncie/base.html' %}
+
+{% block title %}Detalhes da denúncia{% endblock %}
+
+{% block content %}
+
+<h1>Detalhes da denúncia</h1>
+
+<div class="destaque">
+    <p><strong>Protocolo:</strong> {{ denuncia.protocolo }}</p>
+    <p><strong>Tipo:</strong> {{ denuncia.get_tipo_display }}</p>
+    <p><strong>Empresa:</strong> {{ denuncia.empresa }}</p>
+    <p><strong>Descrição:</strong> {{ denuncia.descricao }}</p>
+    <p><strong>Denúncia anônima:</strong> {{ denuncia.anonima|yesno:"Sim,Não" }}</p>
+
+    {% if not denuncia.anonima %}
+    <p><strong>Nome:</strong> {{ denuncia.nome }}</p>
+    <p><strong>E-mail:</strong> {{ denuncia.email }}</p>
+    {% endif %}
+
+    <p><strong>Data:</strong> {{ denuncia.criada_em|date:"d/m/Y H:i" }}</p>
+</div>
+
+<h2>Atualizar denúncia</h2>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <label>Status</label>
+
+    <select name="status">
+        {% for valor, descricao in denuncia.STATUS %}
+        <option value="{{ valor }}"
+            {% if denuncia.status == valor %}selected{% endif %}>
+            {{ descricao }}
+        </option>
+        {% endfor %}
+    </select>
+
+    <label>Observação administrativa</label>
+    <textarea name="observacao" rows="5"></textarea>
+
+    <button type="submit">Salvar alterações</button>
+</form>
+
+<h2>Observações anteriores</h2>
+
+{% for observacao in denuncia.observacoes.all %}
+<div class="destaque">
+    <p>{{ observacao.texto }}</p>
+    <small>{{ observacao.administrador }} - {{ observacao.criada_em|date:"d/m/Y H:i" }}</small>
+</div>
+{% empty %}
+<p>Nenhuma observação registrada.</p>
+{% endfor %}
+
+<h2>Histórico de auditoria</h2>
+
+{% for item in denuncia.historicos.all %}
+<div class="destaque">
+    <p>{{ item.acao }}</p>
+    <small>{{ item.usuario }} - {{ item.data|date:"d/m/Y H:i" }}</small>
+</div>
+{% empty %}
+<p>Nenhum registro disponível.</p>
+{% endfor %}
+
+<a href="{% url 'painel_admin' %}">Voltar ao painel</a>
+
+{% endblock %}
