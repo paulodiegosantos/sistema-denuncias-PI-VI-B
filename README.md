@@ -20,6 +20,30 @@ Oferecer um canal para que pessoas possam registrar denúncias de forma anônima
 - Histórico de alterações e ações realizadas.
 - Criptografia de informações confidenciais armazenadas no banco de dados.
 
+## Páginas e rotas do sistema
+
+O sistema possui páginas públicas, destinadas ao registro e acompanhamento de denúncias, e páginas administrativas, destinadas ao gerenciamento interno.
+
+### Páginas públicas
+
+| Página | Rota | Objetivo |
+|---|---|---|
+| Página inicial | `/` | Apresenta o sistema e oferece acesso às principais funcionalidades. |
+| Registrar denúncia | `/denunciar/` | Permite registrar uma denúncia anônima ou identificada, informando sua categoria e descrição. |
+| Confirmação | `/confirmacao/<protocolo>/` | Apresenta a confirmação do registro e o protocolo individual que será utilizado para acompanhar a denúncia. |
+| Acompanhar denúncia | `/acompanhar/` | Permite consultar o andamento de uma denúncia utilizando seu protocolo, exibindo informações básicas como tipo, status e data de recebimento. |
+
+### Páginas administrativas
+
+| Página | Rota | Objetivo |
+|---|---|---|
+| Login administrativo | `/administracao/login/` | Permite a autenticação de usuários autorizados a administrar o sistema. |
+| Painel administrativo | `/administracao/` | Apresenta as denúncias registradas e indicadores de acompanhamento, como quantidade total e distribuição por status. |
+| Detalhes da denúncia | `/administracao/denuncia/<id>/` | Permite visualizar os detalhes confidenciais da denúncia, alterar seu status, registrar observações e consultar o histórico de alterações. |
+| Sair da administração | `/administracao/sair/` | Encerra a sessão do usuário administrativo. |
+
+**Observação:** as rotas administrativas são protegidas por controle de acesso. Usuários sem autorização não podem acessar o painel nem os detalhes internos das denúncias.
+
 ## Tecnologias utilizadas
 
 - Python
@@ -66,7 +90,7 @@ Após concluir a configuração, execute:
 
 O sistema ficará disponível no endereço:
 
-`http://127.0.0.1:8000/`
+http://127.0.0.1:8000/
 
 ## Administração
 
