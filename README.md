@@ -118,4 +118,4 @@ Cada instalação possui sua própria chave criptográfica e seu próprio banco 
 
 ## Autor
 
-Projeto acadêmico desenvolvido por *Paulo Diego* individualmente para o Projeto Integrador VI-B.
+Projeto acadêmico desenvolvido por **Paulo Diego** individualmente para o Projeto Integrador VI-B.
